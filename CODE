@@ -1,0 +1,94 @@
+// Bus reservation sytem
+const buses = {
+   luxury: { name: "Luxury", price: 5000, seats: Array(10).fill(null) }, 
+   airCondition: { name: "AC", price: 4500, seats: Array(10).fill(null) },
+   minibus: { name: "MiniBus", price: 3000, seats: Array(10).fill(null) },
+   wpass: { name: "WPass", price: 2800, seats: Array(10).fill(null) }
+};
+
+// Show available buses
+function showBuses() {
+  console.log("Available Buses:");
+  Object.keys(buses).forEach((key, i) => {
+    const bus = buses[key];
+    console.log((i + 1) + ". " + bus.name + " - ₱" + bus.price);
+  });
+}
+
+// Reserve Seat
+function reserveSeat(busIndex, seatNumber, passengerName) {
+  const bus = Object.values(buses)[busIndex];
+  if (bus.seats[seatNumber] === null) {
+    bus.seats[seatNumber] = passengerName;
+    console.log("Seat " + (seatNumber + 1) + " reserved for " + passengerName);
+  } else {
+    console.log("Seat already taken.");
+  }
+}
+
+// Cancel Seat
+function cancelSeat(busIndex, seatNumber) {
+  const bus = Object.values(buses)[busIndex];
+  if (bus.seats[seatNumber] !== null) {
+    console.log("Seat " + (seatNumber + 1) + " reservation canceled.");
+    bus.seats[seatNumber] = null;
+  } else {
+    console.log("Seat is already empty.");
+  }
+}
+
+// Show Reserved Seats
+function showReservedSeats(busIndex) {
+  const bus = Object.values(buses)[busIndex];
+  console.log("Reserved Seats in " + bus.name + ":");
+  bus.seats.forEach((seat, i) => {
+    if (seat !== null) {
+      console.log("Seat " + (i + 1) + ": " + seat);
+    }
+  });
+}
+
+// Pay Function
+function pay(busIndex) {
+  const bus = Object.values(buses)[busIndex];
+  let total = 0;
+  let count = 0;
+  bus.seats.forEach(seat => {
+    if (seat !== null) {
+      count++;
+      total += bus.price;
+    }
+  });
+  console.log("Total seats reserved: " + count);
+  console.log("Total amount to pay: ₱" + total);
+  console.log("Payment complete.");
+}
+
+function login(username) {
+  const users = ['user1', 'user2', 'user3'];
+  return users.includes(username); // Check if the user exists
+}
+
+if (login('user1')) {
+  showBuses();
+  reserveSeat(0, 2, 'Juan');
+  reserveSeat(0, 4, 'Ana');
+  cancelSeat(0, 2);
+  showReservedSeats(0);
+  pay(0);
+}
+/*OUTPUT:
+Available Buses:
+1. Luxury - ₱5000
+2. AC - ₱4500
+3. MiniBus - ₱3000
+4. WPass - ₱2800
+Seat 3 reserved for Juan
+Seat 5 reserved for Ana
+Seat 3 reservation canceled.
+Reserved Seats in Luxury:
+Seat 5: Ana
+Total seats reserved: 1
+Total amount to pay: ₱5000
+Payment complete.
+*/
