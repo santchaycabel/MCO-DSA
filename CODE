@@ -4,7 +4,7 @@ SANTCHAY CABEL
 LAWRENCE BAJALA
 */
 
-// Define available buses with their names, prices, and 10 empty seats
+// Define available buses with their names, prices, and 10 empty seats which contains four types of busses:
 const buses = {
   luxury: { name: "Luxury", price: 5000, seats: Array(10).fill(null) },
   airCondition: { name: "AC", price: 4500, seats: Array(10).fill(null) },
@@ -33,10 +33,11 @@ function reserveSeat(busIndex, seatNumber, passengerName) {
   }
 }
 
-// Function to cancel a reserved seat
+// Function to cancel a reserved seat, removes a reservation from a seat
 function cancelSeat(busIndex, seatNumber) {
   const bus = Object.values(buses)[busIndex];
-  // Check if seat is reserved
+
+  // Check if seat is reserved and if it so it will clears it
   if (bus.seats[seatNumber] !== null) {
     console.log("Seat " + (seatNumber + 1) + " reservation canceled.");
     bus.seats[seatNumber] = null; // Cancel reservation
