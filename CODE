@@ -1,12 +1,18 @@
-// Bus reservation sytem
+/*MEMBERS:
+PRINCESS SAHAGUN
+SANTCHAY CABEL
+LAWRENCE BAJALA
+*/
+
+// Define available buses with their names, prices, and 10 empty seats
 const buses = {
-   luxury: { name: "Luxury", price: 5000, seats: Array(10).fill(null) }, 
-   airCondition: { name: "AC", price: 4500, seats: Array(10).fill(null) },
-   minibus: { name: "MiniBus", price: 3000, seats: Array(10).fill(null) },
-   wpass: { name: "WPass", price: 2800, seats: Array(10).fill(null) }
+  luxury: { name: "Luxury", price: 5000, seats: Array(10).fill(null) },
+  airCondition: { name: "AC", price: 4500, seats: Array(10).fill(null) },
+  minibus: { name: "MiniBus", price: 3000, seats: Array(10).fill(null) },
+  uvxpress: { name: "UVX press", price: 2800, seats: Array(10).fill(null) }
 };
 
-// Show available buses
+// Function to show available buses with prices
 function showBuses() {
   console.log("Available Buses:");
   Object.keys(buses).forEach((key, i) => {
@@ -15,29 +21,31 @@ function showBuses() {
   });
 }
 
-// Reserve Seat
+// Function to reserve a seat in a bus
 function reserveSeat(busIndex, seatNumber, passengerName) {
   const bus = Object.values(buses)[busIndex];
+  // Check if seat is available
   if (bus.seats[seatNumber] === null) {
-    bus.seats[seatNumber] = passengerName;
+    bus.seats[seatNumber] = passengerName; // Reserve seat
     console.log("Seat " + (seatNumber + 1) + " reserved for " + passengerName);
   } else {
     console.log("Seat already taken.");
   }
 }
 
-// Cancel Seat
+// Function to cancel a reserved seat
 function cancelSeat(busIndex, seatNumber) {
   const bus = Object.values(buses)[busIndex];
+  // Check if seat is reserved
   if (bus.seats[seatNumber] !== null) {
     console.log("Seat " + (seatNumber + 1) + " reservation canceled.");
-    bus.seats[seatNumber] = null;
+    bus.seats[seatNumber] = null; // Cancel reservation
   } else {
     console.log("Seat is already empty.");
   }
 }
 
-// Show Reserved Seats
+// Function to show all reserved seats for a specific bus
 function showReservedSeats(busIndex) {
   const bus = Object.values(buses)[busIndex];
   console.log("Reserved Seats in " + bus.name + ":");
@@ -48,11 +56,12 @@ function showReservedSeats(busIndex) {
   });
 }
 
-// Pay Function
+// Function to calculate and display total payment for reserved seats
 function pay(busIndex) {
   const bus = Object.values(buses)[busIndex];
   let total = 0;
   let count = 0;
+  // Count reserved seats and compute total cost
   bus.seats.forEach(seat => {
     if (seat !== null) {
       count++;
@@ -64,25 +73,28 @@ function pay(busIndex) {
   console.log("Payment complete.");
 }
 
+// Function to check if a username exists (for login)
 function login(username) {
   const users = ['user1', 'user2', 'user3'];
-  return users.includes(username); // Check if the user exists
+  return users.includes(username); // Check if user is in the list
 }
 
+// Main Program
 if (login('user1')) {
-  showBuses();
-  reserveSeat(0, 2, 'Juan');
-  reserveSeat(0, 4, 'Ana');
-  cancelSeat(0, 2);
-  showReservedSeats(0);
-  pay(0);
+  showBuses();                  // Show all available buses
+  reserveSeat(0, 2, 'Juan');    // Reserve seat 3 in Luxury bus for Juan
+  reserveSeat(0, 4, 'Ana');     // Reserve seat 5 in Luxury bus for Ana
+  cancelSeat(0, 2);             // Cancel Juan's reservation
+  showReservedSeats(0);         // Show reserved seats in Luxury bus
+  pay(0);                       // Display payment for Luxury bus reservations
 }
+
 /*OUTPUT:
 Available Buses:
 1. Luxury - ₱5000
 2. AC - ₱4500
 3. MiniBus - ₱3000
-4. WPass - ₱2800
+4. UVX press - ₱2800
 Seat 3 reserved for Juan
 Seat 5 reserved for Ana
 Seat 3 reservation canceled.
@@ -92,3 +104,8 @@ Total seats reserved: 1
 Total amount to pay: ₱5000
 Payment complete.
 */
+
+
+
+
+ 
